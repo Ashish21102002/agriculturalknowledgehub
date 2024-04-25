@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Crop Prediction Tool</title>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agriculture Knowledge Hub</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/header.css"> 
+    <link rel="stylesheet" href="css/index.css"> 
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-light sticky-top">
+            <div class="container">
+                <nav class="navbar navbar-light" >
+                    <div class="container">
+                <a class="navbar-brand" href="index.html"><img src="images/Screenshot (1).png" alt="Company Logo"></a>
+                    </div>
+                </nav>
+
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavMobile" aria-controls="navbarNavMobile" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                
+                <div class="collapse navbar-collapse" id="navbarNavMobile">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link" href="index.html">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="about.html">About Us</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="Cropinfo.html">Crop Info.</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="crop-prediction.html">Crop Prediction</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="blogpage.html">Blog</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="Weather.html">Weather Updates</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="Resource.html">Resources</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="Marketplace.html">Marketplace</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="contactus.html">Contact Us</a>
+                        </li>
+                    </ul>
+                    
+                    <div class="dropdown ml-3">
+                        <button type="button" class="btn btn-success dropdown-toggle"id="extendedMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Menu
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="extendedMenu">
+                            <a class="dropdown-item" href="login.html">Login</a>
+                            <a class="dropdown-item" href="register.html">Be a Member</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+<style>
+/* CSS code goes here */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+
+h1 {
+    text-align: center;
+    color: #333;
+}
+
+label {
+    display: block;
+    margin-bottom: 10px;
+    color: #666;
+}
+
+select, input[type="number"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    color: #333;
+}
+
+button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+#result {
+    margin-top: 20px;
+    font-weight: bold;
+    text-align: center;
+    color: #333;
+}
+</style>
+</head>
+<body>
+<div class="container">
+    <h1>Crop Prediction Tool</h1>
+    <label for="nValue">Nitrogen (N):</label>
+    <select id="nValue">
+        <option value="Low">Low</option>
+        <option value="Moderate">Moderate</option>
+        <option value="High">High</option>
+    </select>
+    <label for="pValue">Phosphorus (P):</label>
+    <select id="pValue">
+        <option value="Low">Low</option>
+        <option value="Moderate">Moderate</option>
+        <option value="High">High</option>
+    </select>
+    <label for="kValue">Potassium (K):</label>
+    <select id="kValue">
+        <option value="Low">Low</option>
+        <option value="Moderate">Moderate</option>
+        <option value="High">High</option>
+    </select>
+    <label for="phValue">pH Value:</label>
+    <input type="number" id="phValue" min="0" max="14" step="0.1" placeholder="Enter pH value">
+    <label for="rainfall">Rainfall Range (mm):</label>
+    <select id="rainfall">
+        <option value="Low">Low</option>
+        <option value="Moderate">Moderate</option>
+        <option value="High">High</option>
+    </select>
+    <label for="humidity">Humidity:</label>
+    <input type="number" id="humidity" min="0" max="100" placeholder="Enter humidity percentage">
+    <label for="temperature">Temperature (°C):</label>
+    <input type="number" id="temperature" min="-10" max="45" placeholder="Enter temperature in °C">
+    <button onclick="predictCrop()">Predict Crop</button>
+    <div id="result"></div>
+</div>
+<script>
+    function predictCrop() {
+        console.log("predictCrop() function called");
+
+        var nValue = document.getElementById('nValue').value;
+        var pValue = document.getElementById('pValue').value;
+        var kValue = document.getElementById('kValue').value;
+        var phValue = parseFloat(document.getElementById('phValue').value);
+        var rainfall = document.getElementById('rainfall').value;
+        var humidity = parseFloat(document.getElementById('humidity').value);
+        var temperature = parseFloat(document.getElementById('temperature').value);
+        var crop = '';
+
+        console.log("Input Values:");
+        console.log("Nitrogen (N):", nValue);
+        console.log("Phosphorus (P):", pValue);
+        console.log("Potassium (K):", kValue);
+        console.log("pH Value:", phValue);
+        console.log("Rainfall:", rainfall);
+        console.log("Humidity:", humidity);
+        console.log("Temperature:", temperature);
+
+        if (nValue === 'High' && pValue === 'High' && kValue === 'High' && phValue >= 6 && phValue <= 7.5 && rainfall === 'High' && humidity >= 60 && temperature >= 20 && temperature <= 35) {
+            crop = 'Rice';
+        } else if (nValue === 'Moderate' && pValue === 'Moderate' && kValue === 'Moderate' && phValue >= 5.5 && phValue <= 7 && rainfall === 'High' && humidity >= 60 && temperature >= 18 && temperature <= 30) {
+            crop = 'Wheat';
+        } else if (nValue === 'Moderate' && pValue === 'Low' && kValue === 'Moderate' && phValue >= 5.5 && phValue <= 7 && rainfall === 'High' && humidity >= 50 && temperature >= 15 && temperature <= 30) {
+            crop = 'Maize';
+        } else if (nValue === 'Low' && pValue === 'Low' && kValue === 'Moderate' && phValue >= 5.5 && phValue <= 7 && rainfall === 'Moderate' && humidity >= 60 && temperature >= 25 && temperature <= 35) {
+            crop = 'Sugarcane';
+        } else if (nValue === 'Moderate' && pValue === 'Moderate' && kValue === 'Moderate' && phValue >= 5.5 && phValue <= 7 && rainfall === 'Moderate' && humidity >= 60 && temperature >= 20 && temperature <= 35) {
+            crop = 'Cotton';
+        } else if (nValue === 'Moderate' && pValue === 'Moderate' && kValue === 'Moderate' && phValue >= 5.5 && phValue <= 7 && rainfall === 'High' && humidity >= 70 && temperature >= 25 && temperature <= 30) {
+            crop = 'Jute';
+        } else if (nValue === 'Low' && pValue === 'Moderate' && kValue === 'Moderate' && phValue >= 5.5 && phValue <= 7.5 && rainfall === 'Moderate' && humidity >= 60 && temperature >= 20 && temperature <= 35) {
+            crop = 'Oil Seeds';
+        } else if (nValue === 'Moderate' && pValue === 'High' && kValue === 'Moderate' && phValue >= 5.5 && phValue <= 7 && rainfall === 'High' && humidity >= 60 && temperature >= 25 && temperature <= 35) {
+            crop = 'Pulses';
+        } else if (nValue === 'High' && pValue === 'Moderate' && kValue === 'High' && phValue >= 5.5 && phValue <= 7 && rainfall === 'High' && humidity >= 60 && temperature >= 25 && temperature <= 35) {
+            crop = 'Coconut';
+        } else if (nValue === 'Moderate' && pValue === 'Moderate' && kValue === 'Low' && phValue >= 5.5 && phValue <= 7 && rainfall === 'Moderate' && humidity >= 70 && temperature >= 20 && temperature <= 30) {
+            crop = 'Mesta';
+        } else if (nValue === 'High' && pValue === 'High' && kValue === 'High' && phValue >= 5.5 && phValue <= 6.5 && rainfall === 'High' && humidity >= 60 && temperature >= 20 && temperature <= 30) {
+            crop = 'Tea';
+        } else if (nValue === 'Low' && pValue === 'Low' && kValue === 'Low' && phValue >= 4 && phValue <= 6 && rainfall === 'High' && humidity >= 60 && temperature >= 25 && temperature <= 35) {
+            crop = 'Rubber';
+        } else if (nValue === 'Moderate' && pValue === 'Low' && kValue === 'Moderate' && phValue >= 5.5 && phValue <= 7 && rainfall === 'High' && humidity >= 60 && temperature >= 20 && temperature <= 35) {
+            crop = 'Gram';
+        } else if (nValue === 'Low' && pValue === 'Low' && kValue === 'Low' && phValue >= 6 && phValue <= 7 && rainfall === 'Moderate' && humidity >= 60 && temperature >= 20 && temperature <= 35) {
+            crop = 'Mustard';
+        } else if (nValue === 'Moderate' && pValue === 'Moderate' && kValue === 'Moderate' && phValue >= 5.5 && phValue <= 7 && rainfall === 'Moderate' && humidity >= 60 && temperature >= 20 && temperature <= 35) {
+            crop = 'Sesame';
+        } else if (nValue === 'Moderate' && pValue === 'Moderate' && kValue === 'Moderate' && phValue >= 5.5 && phValue <= 7 && rainfall === 'Moderate' && humidity >= 60 && temperature >= 20 && temperature <= 35) {
+            crop = 'Ragi';
+        } else if (nValue === 'Moderate' && pValue === 'Moderate' && kValue === 'High' && phValue >= 4.8 && phValue <= 6.5 && rainfall === 'Moderate' && humidity >= 70 && temperature >= 15 && temperature <= 25) {
+            crop = 'Potato';
+        } else if (nValue === 'High' && pValue === 'Moderate' && kValue === 'Moderate' && phValue >= 5.5 && phValue <= 7 && rainfall === 'Moderate' && humidity >= 60 && temperature >= 20 && temperature <= 35) {
+            crop = 'Soybean';
+        } else if (nValue === 'low' && pValue === 'low' && kValue === 'low' && phValue >= 4.0 && phValue <= 4.5 && rainfall === 'low' && humidity >= 0 && temperature >= -10 && temperature <= 30) {
+            crop = 'Mustard';
+        } else {
+            crop = 'No suitable crop found for the given conditions.';
+        }
+
+        console.log("Predicted Crop:", crop);
+        document.getElementById('result').textContent = 'Predicted Crop: ' + crop;
+    }
+</script>
+</body>
+</html>

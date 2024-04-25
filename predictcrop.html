@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Crop Prediction Tool</title>
+<style>
+/* CSS code goes here */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+.container {
+    max-width: 600px;
+    margin: 50px auto;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    text-align: center;
+    color: #333;
+}
+
+label {
+    display: block;
+    margin-bottom: 10px;
+    color: #666;
+}
+
+select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    color: #333;
+}
+
+button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+#result {
+    margin-top: 20px;
+    font-weight: bold;
+    text-align: center;
+    color: #333;
+}
+</style>
+<head>
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+    }
+    .container {
+        max-width: 600px;
+        margin: 50px auto;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    h1 {
+        text-align: center;
+    }
+    label {
+        display: block;
+        margin-bottom: 10px;
+    }
+    select {
+        width: 100%;
+        padding: 8px;
+        margin-bottom: 20px;
+        box-sizing: border-box;
+    }
+    button {
+        background-color: #4CAF50;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+    button:hover {
+        background-color: #45a049;
+    }
+    #result {
+        margin-top: 20px;
+        font-weight: bold;
+    }
+</style>
+</head>
+<body>
+<div class="container">
+    <h1>Crop Prediction Tool</h1>
+    <label for="temperature">Temperature Range:</label>
+    <select id="temperature">
+        <option value="10°C - 25°C">10°C - 25°C</option>
+        <option value="20°C - 35°C">20°C - 35°C</option>
+        <option value="18°C - 30°C">18°C - 30°C</option>
+        <option value="20°C - 30°C">20°C - 30°C</option>
+        <option value="15°C - 30°C">15°C - 30°C</option>
+        <option value="15°C - 25°C">15°C - 25°C</option>
+        <option value="20°C - 30°C">20°C - 30°C</option>
+        <option value="20°C - 35°C">20°C - 35°C</option>
+        <option value="10°C - 20°C">10°C - 20°C</option>
+        <option value="15°C - 20°C">15°C - 20°C</option>
+    </select>
+    <label for="rainfall">Rainfall Range (mm):</label>
+    <select id="rainfall">
+        <option value="300 - 600">300 - 600</option>
+        <option value="1000 - 2500">1000 - 2500</option>
+        <option value="500 - 1000">500 - 1000</option>
+        <option value="400 - 800">400 - 800</option>
+        <option value="500 - 800">500 - 800</option>
+        <option value="400 - 600">400 - 600</option>
+        <option value="500 - 800">500 - 800</option>
+        <option value="1500 - 2500">1500 - 2500</option>
+        <option value="400 - 600">400 - 600</option>
+        <option value="300 - 500">300 - 500</option>
+    </select>
+    <label for="soilType">Soil Type:</label>
+    <select id="soilType">
+        <option value="Loamy">Loamy</option>
+        <option value="Clayey">Clayey</option>
+        <option value="Sandy loam">Sandy loam</option>
+    </select>
+    <label for="nValue">Nitrogen (N):</label>
+    <select id="nValue">
+        <option value="Low">Low</option>
+        <option value="Moderate">Moderate</option>
+        <option value="High">High</option>
+    </select>
+    <label for="pValue">Phosphorus (P):</label>
+    <select id="pValue">
+        <option value="Low">Low</option>
+        <option value="Moderate">Moderate</option>
+        <option value="High">High</option>
+    </select>
+    <label for="kValue">Potassium (K):</label>
+    <select id="kValue">
+        <option value="Low">Low</option>
+        <option value="Moderate">Moderate</option>
+        <option value="High">High</option>
+    </select>
+    <button onclick="predictCrop()">Predict Crop</button>
+    <div id="result"></div>
+</div>
+<script>
+    function predictCrop() {
+        var temperature = document.getElementById('temperature').value;
+        var rainfall = document.getElementById('rainfall').value;
+        var soilType = document.getElementById('soilType').value;
+        var nValue = document.getElementById('nValue').value;
+        var pValue = document.getElementById('pValue').value;
+        var kValue = document.getElementById('kValue').value;
+        var crop = '';
+
+        if (temperature === '10°C - 25°C' && rainfall === '300 - 600' && soilType === 'Loamy' && nValue === 'Moderate' && pValue === 'Moderate' && kValue === 'Moderate') {
+            crop = 'Wheat';
+        } else if (temperature === '20°C - 35°C' && rainfall === '1000 - 2500' && soilType === 'Clayey' && nValue === 'High' && pValue === 'High' && kValue === 'High') {
+            crop = 'Rice';
+        } else if (temperature === '18°C - 30°C' && rainfall === '500 - 1000' && soilType === 'Sandy loam' && nValue === 'Moderate' && pValue === 'Moderate' && kValue === 'Moderate') {
+            crop = 'Maize';
+        } else if (temperature === '20°C - 30°C' && rainfall === '400 - 800' && soilType === 'Well-drained' && nValue === 'High' && pValue === 'Moderate' && kValue === 'Moderate') {
+            crop = 'Soybean';
+        } else if (temperature === '15°C - 30°C' && rainfall === '500 - 800' && soilType === 'Sandy loam' && nValue === 'Moderate' && pValue === 'Moderate' && kValue === 'High') {
+            crop = 'Tomato';
+        } else if (temperature === '15°C - 25°C' && rainfall === '400 - 600' && soilType === 'Loamy' && nValue === 'High' && pValue === 'High' && kValue === 'High') {
+            crop = 'Potato';
+        } else if (temperature === '20°C - 30°C' && rainfall === '500 - 800' && soilType === 'Sandy loam' && nValue === 'Moderate' && pValue === 'Moderate' && kValue === 'High') {
+            crop = 'Cotton';
+        } else if (temperature === '20°C - 35°C' && rainfall === '1500 - 2500' && soilType === 'Clayey' && nValue === 'High' && pValue === 'High' && kValue === 'High') {
+            crop = 'Sugarcane';
+        } else if (temperature === '10°C - 20°C' && rainfall === '400 - 600' && soilType === 'Loamy' && nValue === 'Moderate' && pValue === 'Moderate' && kValue === 'Moderate') {
+            crop = 'Lettuce';
+        } else if (temperature === '15°C - 20°C' && rainfall === '300 - 500' && soilType === 'Sandy loam' && nValue === 'Moderate' && pValue === 'Moderate' && kValue === 'Low') {
+            crop = 'Carrot';
+        } else {
+            crop = 'No suitable crop found for the given conditions.';
+        }
+
+        document.getElementById('result').textContent = 'Predicted Crop: ' + crop;
+    }
+</script>
+</body>
+</html>
